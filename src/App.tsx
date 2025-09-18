@@ -116,6 +116,7 @@ function App() {
   const [answers, setAnswers] = useState<number[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [quizResult, setQuizResult] = useState<QuizResult | null>(null);
+  const [quizStarted, setQuizStarted] = useState(false);
 
   const handleAnswer = (score: number) => {
     const newAnswers = [...answers, score];
@@ -137,6 +138,7 @@ function App() {
     setAnswers([]);
     setShowResult(false);
     setQuizResult(null);
+    setQuizStarted(false);
   };
 
   if (showResult && quizResult) {
@@ -189,7 +191,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8">
-        {currentQuestion === 0 && answers.length === 0 ? (
+        {!quizStarted ? (
           <div className="text-center">
             <div className="mb-8">
               <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
@@ -204,7 +206,7 @@ function App() {
               </p>
             </div>
             <button
-              onClick={() => setCurrentQuestion(0)}
+              onClick={() => setQuizStarted(true)}
               className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-lg text-lg transition-all duration-200 transform hover:scale-105"
             >
               Start Quiz
@@ -254,4 +256,3 @@ function App() {
 }
 
 export default App;
-
